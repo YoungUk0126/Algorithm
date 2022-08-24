@@ -1,40 +1,23 @@
-"""설탕 배달 2839번
-숨겨져 있는 규칙을 찾는게 재밌었다.
-근데 답은 나오는데 백준 채점에서 오답 처리가 된다.
+"""잃어버린 괄호 1541번
+-를 마지막에 해야하는 건 알았지만
+뒤에 +를 아예하지 않고 그냥 전부 빼주면 된다는 생각을 떠올리기 힘들었다.
 """
-import sys
-input = sys.stdin.readline
 
-data = int(input())
+data = input().split('-')
+#[55, 55+40, 30+20]
+result = 0
+for i in data[0].split('+'):
+    result += int(i)
+#55
+for i in data[1:]:
+    for j in i.split('+'):
+        result -= int(j)
 
-tmp = 0
-if(data < 3):
-    print(-1)
-elif(data < 5 and data % 3 != 0):
-    print(-1)
-else:
-    if(data % 5 == 0):
-        print(int(data/5))
-    elif(data % 5 == 4):
-        tmp = data - 9#3*3
-        tmp = tmp / 5
-        print(int(tmp + 3))
-    elif(data % 5 == 3):
-        tmp = data - 3
-        tmp = tmp / 5
-        print(int(tmp + 1))
+print(result)
+        #-40
+        #-90
 
-    elif(data % 5 == 2):
-        tmp = data - 12
-        tmp = tmp / 5
-        print(int(tmp + 4))
-    elif(data % 5 == 1):
-        tmp = data - 6
-        tmp = tmp / 5
-        print(int(tmp + 2))
 
-    else:
-        print(-1)
 
 
 
