@@ -1,28 +1,23 @@
-"""1085 직사각형에서 탈출
-직사각형의 왼쪽 꼭지점 좌표는 항상 0,0이니
-x나 y가 직사각형의 가로 세로 길이보다 0에더 가깝다면 x나 y를 출력
-그렇지 않다면 x에서 가로까지의 길이 y에서 세로까지의 길이를 출력하도록 하였다"""
-x,y,w,h = map(int, input().split())
-row = w - x
-height = h - y
+"""1247번 부호
+별로 좋은 문제는 아닌 것 같다.
+입력받는 것에 시간이 오래 걸려 sys.stdin같은 이상한 함수를 써서
+입력을 받아야한다.
+다만 입력을 한 번에 여러줄을 넣더라도
+입력을 세줄씩 따로 받아 처리하고
+열 줄씩 따로 받아 처리하고 이런 식으로 동작할 수 있다는 것을 알게 되었다."""
+import sys
 
-b_row=0
-b_height=0
-
-if(x<row):
-    b_row = x
-else:
-    b_row = row
-
-if(y<height):
-    b_height=y
-else:
-    b_height=height
-
-if(b_row<b_height):
-    print(b_row)
-else:
-    print(b_height)
+for i in range(3):
+    N = int(sys.stdin.readline().strip())
+    data = 0
+    for i in range(N):
+        data += int(sys.stdin.readline().strip())
+    if(data == 0):
+        print('0')
+    elif(data > 0):
+        print('+')
+    else:
+        print('-')
 
 
 
