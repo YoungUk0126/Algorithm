@@ -1,19 +1,30 @@
-"""잃어버린 괄호 1541번
--를 가장 마지막에 해야 한다는 대략적인 그림을 그리고 있었으나
-그냥 -를 기준으로 모든 숫자들을 분리한 후 +를 하지않고
-모두 -처리를 해준다는 생각을 떠올리기가 어려웠다."""
+"""1085 직사각형에서 탈출
+직사각형의 왼쪽 꼭지점 좌표는 항상 0,0이니
+x나 y가 직사각형의 가로 세로 길이보다 0에더 가깝다면 x나 y를 출력
+그렇지 않다면 x에서 가로까지의 길이 y에서 세로까지의 길이를 출력하도록 하였다"""
+x,y,w,h = map(int, input().split())
+row = w - x
+height = h - y
 
-data = input().split('-')
+b_row=0
+b_height=0
 
-result = 0
-for i in data[0].split('+'):
-    result += int(i)
+if(x<row):
+    b_row = x
+else:
+    b_row = row
 
-for i in data[1:]:
-    for j in i.split('+'):
-        result -= int(j)
+if(y<height):
+    b_height=y
+else:
+    b_height=height
 
-print(result)
+if(b_row<b_height):
+    print(b_row)
+else:
+    print(b_height)
+
+
 
 
 
