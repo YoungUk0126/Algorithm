@@ -1,23 +1,47 @@
-"""1247번 부호
-별로 좋은 문제는 아닌 것 같다.
-입력받는 것에 시간이 오래 걸려 sys.stdin같은 이상한 함수를 써서
-입력을 받아야한다.
-다만 입력을 한 번에 여러줄을 넣더라도
-입력을 세줄씩 따로 받아 처리하고
-열 줄씩 따로 받아 처리하고 이런 식으로 동작할 수 있다는 것을 알게 되었다."""
-import sys
+"""1260번 DFS와 BFS
+어떤 것인지 개념은 알지만 프로그램으로 구현하기 어려웠다.
+그래서 다른 사람 코드를 보면서 문제를 풀었다.
+강의를 봐도 DFS의 재귀 형식은 아직도 이해하기 힘들다.
+다른 유형의 문제를 풀면서 더 알아가야 겠다"""
+N,M,V = map(int,input().split())
 
-for i in range(3):
-    N = int(sys.stdin.readline().strip())
-    data = 0
-    for i in range(N):
-        data += int(sys.stdin.readline().strip())
-    if(data == 0):
-        print('0')
-    elif(data > 0):
-        print('+')
-    else:
-        print('-')
+#행렬 만들기
+graph = [[0]*(N+1) for _ in range(N+1)]
+for i in range (M):
+    a,b = map(int,input().split())
+    graph[a][b] = graph[b][a] = 1
+
+#방문 리스트 행렬
+visited1 = [0]*(N+1)
+visited2 = visited1.copy()
+
+#dfs 함수 만들기
+def dfs(V):
+    visited1[V] = 1 #방문처리
+    print(V, end=' ')
+    for i in range(1, N+1):
+        if graph[V][i] == 1 and visited1[i] == 0:
+            dfs(i)
+
+#bfs 함수 만들기
+def bfs(V):
+    queue = [V]
+    visited2[V] = 1 #방문처리
+    while queue:
+        V = queue.pop(0) #방문 노드 제거
+        print(V, end = ' ')
+        for i in range(1, N+1):
+            if visited2[i] == 0 and graph[V][i] == 1:
+                queue.append(i)
+                visited2[i] = 1 # 방문처리
+
+dfs(V)
+print()
+bfs(V)
+
+
+
+
 
 
 
