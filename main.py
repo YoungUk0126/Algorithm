@@ -1,43 +1,66 @@
-"""1260번 DFS와 BFS
-어떤 것인지 개념은 알지만 프로그램으로 구현하기 어려웠다.
-그래서 다른 사람 코드를 보면서 문제를 풀었다.
-강의를 봐도 DFS의 재귀 형식은 아직도 이해하기 힘들다.
-다른 유형의 문제를 풀면서 더 알아가야 겠다"""
-N,M,V = map(int,input().split())
 
-#행렬 만들기
-graph = [[0]*(N+1) for _ in range(N+1)]
-for i in range (M):
-    a,b = map(int,input().split())
-    graph[a][b] = graph[b][a] = 1
+"""2667번 단지번호붙이기
+1. 아이디어
+ - 2중 for, 값 1 && 방문X => DFS
+ - DFS를 통해 찾은 값을 저장 후 정렬 해서 출력
+ 
+2. 자료구조
+ - 그래프 저장 : int[][]
+ - 방문여부 : bool[][]
+ - 결과값 : int[]
+ 
+ map 만들고 visited를 만드는건 알고 있었지만
+ 위아래로 움직이는 값의 배열을 따로 만들어 4방향을 탐색하고
+ 이어지는 모든 숫자들을 탐색 후 그 값을 result 배열에 넣고
+ 하는 과정들을 상상하기가 어려워 유튜브 강의 영상을 참고 하였다.
+ DFS,BFS는 특히나 어려운 것 같다.
+"""
+#이거는 습관화 하자
+import sys
+input = sys.stdin.readline
 
-#방문 리스트 행렬
-visited1 = [0]*(N+1)
-visited2 = visited1.copy()
 
-#dfs 함수 만들기
-def dfs(V):
-    visited1[V] = 1 #방문처리
-    print(V, end=' ')
-    for i in range(1, N+1):
-        if graph[V][i] == 1 and visited1[i] == 0:
-            dfs(i)
+N = int(input())
 
-#bfs 함수 만들기
-def bfs(V):
-    queue = [V]
-    visited2[V] = 1 #방문처리
-    while queue:
-        V = queue.pop(0) #방문 노드 제거
-        print(V, end = ' ')
-        for i in range(1, N+1):
-            if visited2[i] == 0 and graph[V][i] == 1:
-                queue.append(i)
-                visited2[i] = 1 # 방문처리
+map = [list(map(int, input().strip())) for _ in range(N)]
+chk = [[False] * N for _ in range(N)]
+result = []
+each = 0
+dy = [0,1,0,-1]
+dx = [1,0,-1,0]
+def dfs(y,x):
+    global each
+    each += 1
+    for k in range(4):
+        ny = y + dy[k]
+        nx = x + dx[k]
+        if 0<=ny<N and 0<=nx<N:
+            if map[ny][nx] == 1 and chk[ny][nx] == False:
+                chk[ny][nx] = True
+                dfs(ny, nx)
 
-dfs(V)
-print()
-bfs(V)
+
+for j in range(N):
+    for i in range(N):
+        if map[j][i] == 1 and chk [j][i] == False:
+            # 방문 체크 표시
+            chk[j][i] = True
+            each = 0
+            dfs(j,i)
+            result.append(each)
+            # DFS로 크기 구하기
+            # 크기를 결과 리스트에 넣기
+
+result.sort()
+print(len(result))
+for i in result:
+    print(i)
+
+
+
+
+
+
 
 
 
