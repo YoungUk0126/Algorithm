@@ -1,48 +1,41 @@
 """
-2606 바이러스
+9012 괄호
  1. 아이디어
- - 2중 for map == 1 && chk == False => BFS
- - maxv를 이용하여 가장 많이 연결된 값 출력
+ - "(" 와 ")"의 갯수가 동일하면 YES 아니면 NO
+ - 한줄씩 6번 읽어와서 "(" ")" 숫자 검색
+ - "("가 나오지 않았는데 ")"가 먼저 나온 경우 생각
  2. 자료구조
- - 그래프 저장: int[][]
- - 방문 체크: bool[][]
- - Queue(BFS)
- - 가장 많이 연결되어 있는 값: int
+ - 괄호 문자열 : String []
 
-  슬슬 익숙해 지는 것 같다.
-  입력 받는 부분이나 graph, chk를 문제 용도에 따라
-  다르게 하는 부분만 익숙해 지면 탐색 문제를 다 풀 수 있을 것 같다.
+ ")"가 "("보다 먼저 나오고 "(" ")"의 갯수는 같은 경우를
+ 빼고는 쉬운 문제였다.
 """
 import sys
-sys.stdin.readline
+input = sys.stdin.readline
 
 n = int(input())
-m = int(input())
 
-graph = [[] for i in range(n+1)]
-chk = [False] * (n+1)
-cnt = 0
+for i in range(n):
+    cnt1 = 0
+    cnt2 = 0
+    str = input()
+    for i in str:
+        if i == '(':
+            cnt1 += 1
+        elif i == ')':
+            cnt2 += 1
+        if (cnt1 - cnt2) < 0 :
+            print("NO")
+            break
+    if cnt1 > cnt2 :
+        print("NO")
+    elif cnt1 == cnt2:
+        print("YES")
 
-for i in range(m):
-    a, b = map(int, input().strip().split())
-    graph[a].append(b)
-    graph[b].append(a)
 
-def bfs(graph, v):
-    global cnt
-    q = ([v])
-    while q:
-        n = q.pop()
-        chk[n] = True
 
-        for i in graph[n]:
-            if chk[i] == False:
-                chk[i] = True
-                q.append(i)
-                cnt += 1
 
-bfs(graph, 1)
-print(cnt)
+
 
 
 
