@@ -1,36 +1,50 @@
 """
-9012 괄호
+10828 스택
  1. 아이디어
- - "(" 와 ")"의 갯수가 동일하면 YES 아니면 NO
- - 한줄씩 6번 읽어와서 "(" ")" 숫자 검색
- - "("가 나오지 않았는데 ")"가 먼저 나온 경우 생각
+ - 문자열을 비교하여 연산을 수행한다.(N만큼 반복)
+ - 명령어들을 저장하는 문자열중 0~4번째 인덱스가 push라면 5번째 인덱스부터 있는
+ 숫자들을 읽어들여 스택에 추가한다.
+ - 스택의 길이가 0이라면 스택이 빈 것으로 간주한다.(len 이용)
+ - stack[-1]을 이용하여 마지막 인덱스를 출력한다.
  2. 자료구조
- - 괄호 문자열 : String []
+ - 스택을 표현할 리스트
 
- ")"가 "("보다 먼저 나오고 "(" ")"의 갯수는 같은 경우를
- 빼고는 쉬운 문제였다.
+ 리스트의 내장함수들을 잘만 이용하면 되는 문제였고
+ 처음 봤을 때 push가 어렵겠다 생각했는데 1분도 안걸려서 알고리즘이 떠올라 뿌듯했다.
 """
 import sys
 input = sys.stdin.readline
 
 n = int(input())
 
-for i in range(n):
-    cnt1 = 0
-    cnt2 = 0
-    str = input()
-    for i in str:
-        if i == '(':
-            cnt1 += 1
-        elif i == ')':
-            cnt2 += 1
-        if (cnt1 - cnt2) < 0 :
-            print("NO")
-            break
-    if cnt1 > cnt2 :
-        print("NO")
-    elif cnt1 == cnt2:
-        print("YES")
+stack = []
+
+for _ in range(n):
+    str = input().strip()
+    if str[:4] == 'push':
+        stack.append(int(str[5:]))
+
+    elif str == 'top':
+        if len(stack) == 0:
+            print("-1")
+        else :
+            print(stack[-1])
+
+    elif str == 'pop':
+        if len(stack) == 0:
+            print("-1")
+        else :
+            print(stack.pop())
+    elif str == 'size':
+        print(len(stack))
+    elif str == 'empty':
+        if len(stack) == 0:
+            print("1")
+        else :
+            print("0")
+
+
+
 
 
 
